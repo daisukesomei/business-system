@@ -1,6 +1,6 @@
 @if (Auth::check())
     {{--ユーザー一覧ページへのリンク--}}
-    <li><a class="link link-hover" href="#">Users</a></li>
+    <li><a class="link link-hover" href="{{ route('users.index')}}">Users</a></li>
     {{--案件一覧ページへのリンク--}}
     <li><a class="link link-hover" href="#">案件一覧</a></li>
     {{--案件登録へのリンク--}}
