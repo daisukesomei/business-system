@@ -1,13 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="prose hero bg-emerald-100 mx-auto max-w-full rounded">
-        <div class="hero-content text-center my-10">
-            <div class="max-w-md mb-10">
-                <h2>営業管理システムへようこそ！！</h2>
-                {{--ユーザー登録ページへのリンク--}}
-                <a class="btn btn-primary btn-lg normal-case" href="{{ route('register')}}">登録はこちら！！</a>
+    @if (Auth::check())
+        <div class="sm:grid sm:grid-cols-3 sm:gap-10">
+            <asaide class="mt-4">
+                {{--ユーザー情報--}}
+                @include('users.card');
+            </asaide>
+            <div class="sm:col-span-2">
+                {{--タスク入力フォーム--}}
+                @include('tasks.form')
+                {{--タスク一覧--}}
+                @include('tasks.tasks')
             </div>
         </div>
-    </div>
+    @endif
 @endsection

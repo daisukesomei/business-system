@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    //ユーザーが所有する投稿。（Tasksモデルとの関係を定義）
+    public function tasks() {
+        return $this->hasMany(Task::class);
+    }
+    
+    //ユーザーが所有する案件。（Salesprojectモデルとの関係を定義）
+    public function salesprojects() {
+        return $this->hasMany(Salesproject::class);
+    }
 }

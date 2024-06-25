@@ -1,8 +1,8 @@
 <header class="mb-4">   {{--ナビゲーションバーはヘッダーの為、ヘッダータグ--}}
-    <nav class="navbar bg-neutral text-neutral-content"> {{--navbarはdaisyUIのクラス、bg-neutralはグレーになる、text-neutral-contentは薄いグレーになる--}}
+    <nav class="navbar bg-info text-base-100"> {{--navbarはdaisyUIのクラス、bg-neutralはグレーになる、text-neutral-contentは薄いグレーになる--}}
         {{--トップページへのリンク--}}
         <div class="flex-1">    {{--画面サイズに均等に成長する--}}
-            <h1><a class="btn btn-ghost normal-case text-xl" href="/">営業管理システム</a></h1> {{--ボタンタグにしてボタンをゴーストスタイルでテキストのみ表示する--}}
+            <h1><a class="btn btn-ghost normal-case text-xl" href="/dashboard">営業管理システム</a></h1> {{--ボタンタグにしてボタンをゴーストスタイルでテキストのみ表示する--}}
         </div>
         <div class="flex-none">
             <form method="POST" action="{{ route('logout') }}">
