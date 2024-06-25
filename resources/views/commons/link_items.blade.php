@@ -2,9 +2,9 @@
     {{--ユーザー一覧ページへのリンク--}}
     <li><a class="link link-hover" href="{{ route('users.index')}}">Users</a></li>
     {{--案件一覧ページへのリンク--}}
-    <li><a class="link link-hover" href="#">案件一覧</a></li>
+    <li><a class="link link-hover" href="{{ route('salesprojects.index')}}">案件一覧</a></li>
     {{--案件登録へのリンク--}}
-    <li><a class="link link-hover" href="#">案件登録</a></li>
+    <li><a class="link link-hover" href="{{ route('salesprojects.create')}}">案件登録</a></li>
     {{--ログアウトへのリンク--}}
     <li><a class="link link-hover" href="#" onclick="event.preventDefault();this.closest('form').submit();">ログアウト</a></li>
 @else

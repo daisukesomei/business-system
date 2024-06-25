@@ -13,7 +13,7 @@ class Task extends Model
     protected $fillable = ['content'];
     
     //タスクを所有するユーザー（Userモデルとの関係を定義）
-    function user() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 }

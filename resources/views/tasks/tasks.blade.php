@@ -9,12 +9,17 @@
                 <th class="text-center bg-neutral text-neutral-content">削除</th>
             </tr>
         </thead>
-        @foreach($tasks as $task)
         <tbody>
+            @if(count($tasks) == 0)
             <tr>
-                <th class="text-center border-t border-gray-300">{{ $task->id }}</th>
-                <td class="text-center border-t border-gray-300">{{ $task->content }}</td>
-                <td class="text-center border-t border-gray-300">
+                <td colspan="3" class="border-t border-b border-gray-300">表示するタスクはありません</td>
+            </tr>
+            @else
+            @foreach($tasks as $task)
+            <tr>
+                <th class="text-center border-t border-b border-gray-300">{{ $task->id }}</th>
+                <td class="text-center border-t border-b border-gray-300">{{ $task->content }}</td>
+                <td class="text-center border-t border-b border-gray-300">
                     <form method="post" action="{{ route('tasks.destroy',$task->id)}}">
                         @csrf
                         @method('DELETE')
@@ -22,8 +27,9 @@
                     </form>
                 </td>
             </tr>
+            @endforeach
+            @endif
         </tbody>
-        @endforeach
     </table>
     {{--ページネーションのリンク--}}
     {{ $tasks->links() }}

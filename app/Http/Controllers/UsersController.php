@@ -22,10 +22,9 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         
         //案件一覧を取得
-        
-        
+        $salesprojects = $user->salesprojects()->paginate(10);
         //ユーザー詳細ビューで上記を表示
-        return view('users.show', ["user" => $user]);
+        return view('users.show', ["user" => $user, 'salesprojects' => $salesprojects ]);
         
     }
 }

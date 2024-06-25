@@ -5,7 +5,7 @@
         <div class="sm:grid sm:grid-cols-3 sm:gap-10">
             <asaide class="mt-4">
                 {{--ユーザー情報--}}
-                @include('users.card');
+                @include('users.card')
             </asaide>
             <div class="sm:col-span-2">
                 {{--タスク入力フォーム--}}

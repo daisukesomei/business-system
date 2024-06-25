@@ -6,6 +6,9 @@
             {{--ユーザー情報--}}
             @include('users.card')
         </aside>
+        <div class="sm:col-span-2">
+            {{--タスク一覧--}}
+            @include('salesprojects.show')
+        </div>
     </div>
-
 @endsection
