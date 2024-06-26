@@ -3,6 +3,8 @@
     <li><a class="link link-hover" href="{{ route('tasks.show',Auth::user()->id)}}">{{ Auth::user()->name }}詳細</a></li>
     {{--ユーザー一覧ページへのリンク--}}
     <li><a class="link link-hover" href="{{ route('users.index')}}">Users</a></li>
+    {{--お客様一覧ページへのリンク--}}
+    <li><a class="link link-hover" href="{{ route('customers.index')}}">お客様一覧</a></li>
     {{--案件一覧ページへのリンク--}}
     <li><a class="link link-hover" href="{{ route('salesprojects.index')}}">案件一覧</a></li>
     {{--案件登録へのリンク--}}
