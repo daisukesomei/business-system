@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::get('/dashboard',[TasksController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('tasks', TasksController::class, ['only' =>['store', 'destroy']]);
+    Route::resource('tasks', TasksController::class, ['only' =>['show','store', 'destroy']]);   //TasksControllerに権限者ユーザーの詳細（タスクと案件一覧を作成）
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
     Route::resource('salesprojects', SalesprojectsController::class);
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

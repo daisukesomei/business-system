@@ -1,4 +1,6 @@
 @if (Auth::check())
+    {{--権限者詳細ページへのリンク--}}
+    <li><a class="link link-hover" href="{{ route('tasks.show',Auth::user()->id)}}">{{ Auth::user()->name }}詳細</a></li>
     {{--ユーザー一覧ページへのリンク--}}
     <li><a class="link link-hover" href="{{ route('users.index')}}">Users</a></li>
     {{--案件一覧ページへのリンク--}}

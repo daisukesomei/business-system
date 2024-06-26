@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;    //追加
+use App\Models\User;    //追加
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -20,6 +21,22 @@ class TasksController extends Controller
         }
             //dashboardビューで上記を表示
             return view('dashboard', $data);
+    }
+    
+    //ログインしたユーザーの詳細ページ（案件一覧とタスク一覧）を表示
+    public function show($id){
+        $data = [];
+        //ログイン済みの場合$data配列に入れてビューに引き渡す
+        if(\Auth::check()){
+            $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('id', 'DESC')->paginate(5);   //タスクをidの新しい順にページネーションにて表示
+            $salesprojects = $user->salesprojects()->orderBy('id', 'DESC')->paginate(5); //案件一覧をidの新しい順にページネーションにて表示;
+            
+            $data = ['user' => $user, 'tasks' => $tasks, 'salesprojects' => $salesprojects];
+        }
+        
+        //ログインユーザー詳細で上記を表示
+        return view('tasks.show', $data);
     }
     
     //タスクの登録

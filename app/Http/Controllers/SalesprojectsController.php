@@ -12,7 +12,7 @@ class SalesprojectsController extends Controller
     public function index()
     {
         //salesprojectテーブルのすべてをwithでuserメソッドでUserテーブルを紐づけてpaginateで表示
-        $salesprojects = Salesproject::with('user')->paginate(10);
+        $salesprojects = Salesproject::paginate(10);
 
         $data = ['salesprojects' => $salesprojects];
 
