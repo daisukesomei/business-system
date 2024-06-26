@@ -16,7 +16,13 @@
                         <label for="customername" class="label">
                             <span class="label-text">お客様名（選択してください）</span>
                         </label>
-                        <input type="text" name="customername" class="input input-bordered w-full">
+                        
+                        <select name="customer_id" class="select select-bordered w-full">
+                            @foreach($customers as $customer)
+                            <option value="{{$customer->id}}">{{ $customer->customername}}</option>
+                            @endforeach
+                        </select>
+                        
                         <p>※お客様がセレクトの中から無い場合は右側のフォームも入力してください</p>
                     </div>
                     
@@ -45,28 +51,28 @@
                         <input type="text" name="customername" class="input input-bordered w-full">
                     </div>
                     <div class="form-control my-4">
-                        <label for="customername" class="label">
+                        <label for="postalcode" class="label">
                             <span class="label-text">郵便番号</span>
                         </label>
-                        <input type="text" name="customername" class="input input-bordered w-full">
+                        <input type="text" name="postalcode" class="input input-bordered w-full">
                     </div>
                     <div class="form-control my-4">
-                        <label for="customername" class="label">
+                        <label for="address" class="label">
                             <span class="label-text">住所</span>
                         </label>
-                        <input type="text" name="customername" class="input input-bordered w-full">
+                        <input type="text" name="address" class="input input-bordered w-full">
                     </div>
                     <div class="form-control my-4">
-                        <label for="customername" class="label">
+                        <label for="tel" class="label">
                             <span class="label-text">ＴＥＬ</span>
                         </label>
-                        <input type="text" name="customername" class="input input-bordered w-full">
+                        <input type="text" name="tel" class="input input-bordered w-full">
                     </div>
                     <div class="form-control my-4">
-                        <label for="customername" class="label">
+                        <label for="email" class="label">
                             <span class="label-text">email</span>
                         </label>
-                        <input type="text" name="customername" class="input input-bordered w-full">
+                        <input type="text" name="email" class="input input-bordered w-full">
                     </div>                    
                 </div>
             </div>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('salesprojects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('customer_id');
             $table->string('customername');
             $table->unsignedBigInteger('price');
             $table->string('comment');
@@ -21,6 +22,7 @@ return new class extends Migration
             
             //外部キー制約
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 
