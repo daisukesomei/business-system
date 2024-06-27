@@ -16,7 +16,7 @@
             <tr>
                 <th class="text-center border-t border-gray-300">{{ $salesproject->id }}</th>
                 <td class="text-center border-t border-gray-300">{{ $salesproject->user->name }}</td>
-                <td class="text-center border-t border-gray-300">{{ $salesproject->customername }}</td>
+                <td class="text-center border-t border-gray-300"><a href="{{ route('customers.show' ,$salesproject->customer_id)}}" class="text-blue-600/100 underline">{{ $salesproject->customername }}</a></td>
                 <td class="text-center border-t border-gray-300">{{ $salesproject->price }}</td>
                 <td class="text-center border-t border-gray-300">{{ $salesproject->comment }}</td>
             </tr>
