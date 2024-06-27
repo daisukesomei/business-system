@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;    //追記
+use App\Models\Salesproject;    //追記
 
 class CustomersController extends Controller
 {
@@ -19,8 +20,15 @@ class CustomersController extends Controller
         //customerのidを取得し取得したidからcustomerテーブルから取得し$customerに代入
         $customer = Customer::findOrFail($id);
         
+        //Salesprojectモデルのuser情報をリレーションしてcustomer_idと引数の$idが一致する情報のみ取得
+        $salesprojects = Salesproject::with('user')->where('customer_id', $id)->get();
+        $users = $salesprojects->map(function($salesproject){
+            return $salesproject->user;
+        })->unique('id');
+
+        
         //上記をビューに渡して表示
-        return view('customers.show', ['customer' => $customer]);
+        return view('customers.show', ['customer' => $customer, 'users' => $users]);
     }
     
     public function edit(int $id){

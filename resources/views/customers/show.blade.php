@@ -9,6 +9,7 @@
             </aside>
             <div class="sm:col-span-1">
                 {{--担当しているuser一覧--}}
+                @include('customers.users')
             </div>
         </div>
     @endif
