@@ -20,7 +20,7 @@
                 <label for="price" class="label">
                     <span class="label-text">収入</span>
                 </label>
-                <input type="text" name="price" value="{{ $salesproject->price }}" class="input input-bordered w-full">
+                <input type="text" name="price" value="{{ number_format($salesproject->price) }}" class="input input-bordered w-full">
             </div>
 
             <div class="form-control my-4">

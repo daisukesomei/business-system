@@ -22,7 +22,7 @@
             <tr>
                 <th class="text-center border-t border-gray-300">{{ $salesproject->id }}</th>
                 <td class="text-center border-t border-gray-300">{{ $salesproject->customername }}</td>
-                <td class="text-center border-t border-gray-300">{{ $salesproject->price }}</td>
+                <td class="text-center border-t border-gray-300">{{ number_format($salesproject->price) }}</td>
                 <td class="text-center border-t border-gray-300">{{ $salesproject->comment }}</td>
                 @if(\Auth::id() === $salesproject->user_id)
                 <td class="text-center border-t border-gray-300">

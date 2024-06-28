@@ -22,11 +22,28 @@ class CustomersController extends Controller
         $customer = Customer::findOrFail($id);
         
         //Salesprojectモデルのuser情報をリレーションしてcustomer_idと引数の$idが一致する情報のみ取得
-        $salesprojects = Salesproject::with('user')->where('customer_id', $id)->get();
-        $users = $salesprojects->map(function($salesproject){
-            return $salesproject->user;
-        })->unique('id');
+        // $salesprojects = Salesproject::with('user')->where('customer_id', $id)->get();
+        // $users = $salesprojects->map(function($salesproject){
+        //     return $salesproject->user;
+        // })->unique('id');
+        
 
+        // $query = User::query(); 
+        // $query->join('salesprojects', 'salesprojects.user_id', "=", 'users.id');
+        // $query->where('customer_id', $id);
+        // $users = $query->distinct()->get(); 
+        
+        // //Userテーブルとsalesprojectsテーブルを連結（user_idとusersテーブルのidを紐づけ）
+        // $query = User::join('salesprojects', 'salesprojects.user_id', '=', 'users.id');
+        // //salesprojectsのcustomer_idと引数の$idの一致するものに絞る
+        // $query->where('salesprojects.customer_id', $id);
+        // //distinctがちゃんとcustomer_idではなくuser_idの重複を排除してくれている！なぜだ・・・。
+        // $users = $query->distinct()->get(['users.*']); 
+        
+        $query = User::select(["users.*"])->distinct();
+        $query->join('salesprojects', 'salesprojects.user_id', '=', 'users.id');
+        $query->where('salesprojects.customer_id', $id);
+        $users = $query->get();
         
         //上記をビューに渡して表示
         return view('customers.show', ['customer' => $customer, 'users' => $users]);
