@@ -96,11 +96,10 @@ class SalesprojectsController extends Controller
     {
         //バリデーション
         $request->validate([
-            'customername' => 'required|max:255',
             'price' => 'numeric|between:0,1000000000',
             'comment' => 'required|max:255',
         ],
-        [ 'customername.required' => 'お客様名は必須です',
+        [ 
           'price' => '収入は必須です。0～の数字で入力してください。',
           'comment' => 'コメントは必須です',
         ]);
