@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;    //追加
 use App\Models\User;    //追加
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest;
 
 class TasksController extends Controller
 {
@@ -40,14 +41,7 @@ class TasksController extends Controller
     }
     
     //タスクの登録
-    public function store(Request $request){
-        //バリデーション
-        $request->validate([
-            'content' => 'required|max:255',
-        ],
-        [ 'content.required' => 'タスク入力は必須です。',
-        ]);
-            
+    public function store(TaskRequest $request){
         //認証済みユーザー（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         $request->user()->tasks()->create(['content' => $request->content ]);
         //投稿終了後前のページにバック

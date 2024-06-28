@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;    //追記
 use App\Models\Salesproject;    //追記
 use App\Models\User;    //追記
+use App\Http\Requests\CustomerRequest;   //追記
 
 class CustomersController extends Controller
 {
@@ -22,10 +23,10 @@ class CustomersController extends Controller
         $customer = Customer::findOrFail($id);
         
         //Salesprojectモデルのuser情報をリレーションしてcustomer_idと引数の$idが一致する情報のみ取得
-        // $salesprojects = Salesproject::with('user')->where('customer_id', $id)->get();
-        // $users = $salesprojects->map(function($salesproject){
-        //     return $salesproject->user;
-        // })->unique('id');
+        $salesprojects = Salesproject::with('user')->where('customer_id', $id)->get();
+        $users = $salesprojects->map(function($salesproject){
+            return $salesproject->user;
+        })->unique('id');
         
 
         // $query = User::query(); 
@@ -40,10 +41,10 @@ class CustomersController extends Controller
         // //distinctがちゃんとcustomer_idではなくuser_idの重複を排除してくれている！なぜだ・・・。
         // $users = $query->distinct()->get(['users.*']); 
         
-        $query = User::select(["users.*"])->distinct();
-        $query->join('salesprojects', 'salesprojects.user_id', '=', 'users.id');
-        $query->where('salesprojects.customer_id', $id);
-        $users = $query->get();
+        // $query = User::select(["users.*"])->distinct();
+        // $query->join('salesprojects', 'salesprojects.user_id', '=', 'users.id');
+        // $query->where('salesprojects.customer_id', $id);
+        // $users = $query->get();
         
         //上記をビューに渡して表示
         return view('customers.show', ['customer' => $customer, 'users' => $users]);
@@ -57,22 +58,7 @@ class CustomersController extends Controller
         return view('customers.edit', ['customer' => $customer]);
     }
     
-    public function update(Request $request,int $id){
-        //バリデーション
-        $request->validate([
-            'customername' => 'required|max:255',
-            'postalcode' => 'required|max:10',
-            'address' => 'required|max:255',
-            'tel' => 'required|max:20',
-            'email' => 'email|max:20',
-        ],[ 
-            'customername.required' => 'お客様名は必須です',
-            'postalcode.required' => '郵便番号は必須です。',
-            'address.required' => '住所は必須です',
-            'tel.required' => '電話番号は必須です',
-            'email.email' => 'Emailは必須です。Email形式で入力してください。',
-        ]);
-        
+    public function update(CustomerRequest $request,int $id){
         //アップデートを行うカスタマーidをモデルから取得
         $customer = Customer::findOrFail($id);
         
