@@ -13,7 +13,7 @@ class SalesprojectsController extends Controller
     public function index()
     {
         //salesprojectテーブルのすべてをwithでuserメソッドでUserテーブルを紐づけてpaginateで表示
-        $salesprojects = Salesproject::paginate(10);
+        $salesprojects = Salesproject::with(['customer'])->paginate(10);
 
         $data = ['salesprojects' => $salesprojects];
 
@@ -51,8 +51,8 @@ class SalesprojectsController extends Controller
                 
                 //選ばれたお客様idをもとにidに紐づくカスタマーテーブル情報を取得
                 $customer = Customer::findOrfail($request->customer_id);
-                //フォームで入力された値とcustomername・customer_idは$customerの情報を保存
-                $user->salesprojects()->create(['customername' => $customer->customername, 'customer_id' => $request->customer_id, 'price' => $request->price, 'comment' => $request->comment]);
+                //フォームで入力された値とcustomer_idは$customerの情報を保存
+                $user->salesprojects()->create(['customer_id' => $request->customer_id, 'price' => $request->price, 'comment' => $request->comment]);
             }else{
                 //バリデーション
                 $request->validate([
@@ -74,7 +74,7 @@ class SalesprojectsController extends Controller
                 ]);
                 
                 $customer = Customer::create(['customername' => $request->customername, 'postalcode' => $request->postalcode, 'address' => $request->address, 'tel' => $request->tel, 'email' => $request->email]);
-                $user->salesprojects()->create(['customername' => $request->customername, 'customer_id' => $customer->id, 'price' => $request->price, 'comment' => $request->comment]);
+                $user->salesprojects()->create(['customer_id' => $customer->id, 'price' => $request->price, 'comment' => $request->comment]);
             }
         }
         return redirect()->route('users.show', $user->id);
@@ -84,7 +84,7 @@ class SalesprojectsController extends Controller
     public function edit(string $id)
     {
         //idに紐づくsalesproject情報を取得
-        $salesproject = Salesproject::findOrfail($id);
+        $salesproject = Salesproject::with('customer')->findOrfail($id);
         
         //上記の情報をビューに渡す
         return view('salesprojects.edit', ['salesproject' => $salesproject]);
@@ -96,12 +96,10 @@ class SalesprojectsController extends Controller
     {
         //バリデーション
         $request->validate([
-            'customername' => 'required|max:255',
             'price' => 'numeric|between:0,1000000000',
             'comment' => 'required|max:255',
         ],
-        [ 'customername.required' => 'お客様名は必須です',
-          'price' => '収入は必須です。0～の数字で入力してください。',
+        [ 'price' => '収入は必須です。0～の数字で入力してください。',
           'comment' => 'コメントは必須です',
         ]);
         
@@ -109,7 +107,7 @@ class SalesprojectsController extends Controller
         
         //認証済みのユーザーの時のみ、アップデートを行える。
         if(\Auth::id() === $request->user()->id){
-            $salesproject->update(['customername' => $request->customername, 'price' => $request->price, 'comment' => $request->comment]);
+            $salesproject->update(['price' => $request->price, 'comment' => $request->comment]);
         }
         return redirect()->route('users.show', $salesproject->user_id);
     }

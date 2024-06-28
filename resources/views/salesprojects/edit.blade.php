@@ -13,7 +13,7 @@
                 <label for="customername" class="label">
                     <span class="label-text">お客様名</span>
                 </label>
-                <input type="text" name="customername" value="{{ $salesproject->customername }}" class="input input-bordered w-full">
+                <p>{{ $salesproject->customer->customername }}</p>
             </div>
 
             <div class="form-control my-4">
