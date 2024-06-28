@@ -40,6 +40,15 @@ class CustomersController extends Controller
     }
     
     public function update(Request $request,int $id){
+        //バリデーション
+        $request->validate([
+            'customername' => 'required|max:255',
+            'postalcode' => 'required|max:10',
+            'address' => 'required|max:255',
+            'tel' => 'required|max:20',
+            'email' => 'email|max:20',
+        ]);
+        
         //アップデートを行うカスタマーidをモデルから取得
         $customer = Customer::findOrFail($id);
         

@@ -34,18 +34,34 @@ class SalesprojectsController extends Controller
     //postでsalesprojectにアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
-        
         $user = $request->user();
 
         //認証済みのユーザーの場合新規案件の登録ができる
         if(\Auth::id() === $user->id){
             //セレクトボックスでお客様が選ばれた場合
             if(isset($request->customer_id)){
+                //バリデーション
+                $request->validate([
+                    'price' => 'numeric|between:0,1000000000',
+                    'comment' => 'required|max:255',
+                ]);
+                
                 //選ばれたお客様idをもとにidに紐づくカスタマーテーブル情報を取得
                 $customer = Customer::findOrfail($request->customer_id);
                 //フォームで入力された値とcustomername・customer_idは$customerの情報を保存
                 $user->salesprojects()->create(['customername' => $customer->customername, 'customer_id' => $request->customer_id, 'price' => $request->price, 'comment' => $request->comment]);
             }else{
+                //バリデーション
+                $request->validate([
+                    'customername' => 'required|max:255',
+                    'postalcode' => 'required|max:10',
+                    'address' => 'required|max:255',
+                    'tel' => 'required|max:20',
+                    'email' => 'email|max:20',
+                    'price' => 'numeric|between:0,1000000000',
+                    'comment' => 'required|max:255',
+                ]);
+                
                 $customer = Customer::create(['customername' => $request->customername, 'postalcode' => $request->postalcode, 'address' => $request->address, 'tel' => $request->tel, 'email' => $request->email]);
                 $user->salesprojects()->create(['customername' => $request->customername, 'customer_id' => $customer->id, 'price' => $request->price, 'comment' => $request->comment]);
             }
@@ -67,6 +83,13 @@ class SalesprojectsController extends Controller
     //putでsalesprojects/(任意のid)にアクセスされた場合の「更新処理」
     public function update(Request $request, string $id)
     {
+        //バリデーション
+        $request->validate([
+            'customername' => 'required|max:255',
+            'price' => 'numeric|between:0,1000000000',
+            'comment' => 'required|max:255',
+        ]);
+        
         $salesproject = Salesproject::findOrfail($id);
         
         //認証済みのユーザーの時のみ、アップデートを行える。
