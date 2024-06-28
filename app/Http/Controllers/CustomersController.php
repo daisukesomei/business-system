@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Customer;    //追記
 use App\Models\Salesproject;    //追記
+use App\Models\User;    //追記
 
 class CustomersController extends Controller
 {
@@ -47,6 +48,12 @@ class CustomersController extends Controller
             'address' => 'required|max:255',
             'tel' => 'required|max:20',
             'email' => 'email|max:20',
+        ],[ 
+            'customername.required' => 'お客様名は必須です',
+            'postalcode.required' => '郵便番号は必須です。',
+            'address.required' => '住所は必須です',
+            'tel.required' => '電話番号は必須です',
+            'email.email' => 'Emailは必須です。Email形式で入力してください。',
         ]);
         
         //アップデートを行うカスタマーidをモデルから取得

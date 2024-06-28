@@ -44,6 +44,9 @@ class SalesprojectsController extends Controller
                 $request->validate([
                     'price' => 'numeric|between:0,1000000000',
                     'comment' => 'required|max:255',
+                ],[
+                    'price' => '収入は必須です。0～の数字で入力してください。',
+                    'comment' => 'コメントは必須です',
                 ]);
                 
                 //選ばれたお客様idをもとにidに紐づくカスタマーテーブル情報を取得
@@ -60,6 +63,14 @@ class SalesprojectsController extends Controller
                     'email' => 'email|max:20',
                     'price' => 'numeric|between:0,1000000000',
                     'comment' => 'required|max:255',
+                ],
+                [ 'customername.required' => 'お客様名は必須です',
+                  'postalcode.required' => '郵便番号は必須です。',
+                  'address.required' => '住所は必須です',
+                  'tel.required' => '電話番号は必須です',
+                  'email.email' => 'Emailは必須です。Email形式で入力してください。',
+                  'price' => '収入は必須です。0～の数字で入力してください。',
+                  'comment' => 'コメントは必須です',
                 ]);
                 
                 $customer = Customer::create(['customername' => $request->customername, 'postalcode' => $request->postalcode, 'address' => $request->address, 'tel' => $request->tel, 'email' => $request->email]);
@@ -88,6 +99,10 @@ class SalesprojectsController extends Controller
             'customername' => 'required|max:255',
             'price' => 'numeric|between:0,1000000000',
             'comment' => 'required|max:255',
+        ],
+        [ 'customername.required' => 'お客様名は必須です',
+          'price' => '収入は必須です。0～の数字で入力してください。',
+          'comment' => 'コメントは必須です',
         ]);
         
         $salesproject = Salesproject::findOrfail($id);

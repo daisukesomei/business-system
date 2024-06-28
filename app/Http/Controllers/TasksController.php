@@ -44,7 +44,9 @@ class TasksController extends Controller
         //バリデーション
         $request->validate([
             'content' => 'required|max:255',
-            ]);
+        ],
+        [ 'content.required' => 'タスク入力は必須です。',
+        ]);
             
         //認証済みユーザー（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         $request->user()->tasks()->create(['content' => $request->content ]);
